@@ -5,24 +5,24 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour {
     PlayerStatus status;
     PlayerJump jump;
+    PlayerInventory pinv;
     Rigidbody2D rb2D;
     //Animator anim;
+
     [SerializeField] float moveSpeed, acceleration, fallSpeed, wallSlideSpeed;
-    bool stunned, wallStickAcquired;
+    bool stunned;
 
     Vector2 moveInput;
 
     void Start() {
+        pinv = GetComponent<PlayerInventory>();
         status = GetComponent<PlayerStatus>();
         jump = GetComponent<PlayerJump>();
         rb2D = GetComponent<Rigidbody2D>();
-
-        //TODO remove once player inventory is implemented
-        wallStickAcquired = false;
     }
 
     void Update() {
-        //TODO player inventory polling
+        //TODO: animations
     }
 
     void FixedUpdate() {
@@ -35,9 +35,9 @@ public class PlayerMovement : MonoBehaviour {
         // Cap fall speed
         if (!status.AgainstWall() && rb2D.velocity.y < -fallSpeed)
             rb2D.velocity = new Vector2(rb2D.velocity.x, -fallSpeed);
-        else if (status.AgainstWall() && !wallStickAcquired && rb2D.velocity.y < -wallSlideSpeed)
+        else if (status.AgainstWall() && !pinv.CanWallStick() && rb2D.velocity.y < -wallSlideSpeed)
             rb2D.velocity = new Vector2(rb2D.velocity.x, -wallSlideSpeed);
-        else if (status.AgainstWall() && wallStickAcquired && rb2D.velocity.y < 0)
+        else if (status.AgainstWall() && pinv.CanWallStick() && rb2D.velocity.y < 0)
             rb2D.velocity = new Vector2(rb2D.velocity.x, 0);
     }
 

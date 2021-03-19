@@ -939,6 +939,7 @@ GameObject:
   - component: {fileID: 1527611441}
   - component: {fileID: 1527611442}
   - component: {fileID: 1527611444}
+  - component: {fileID: 1527611445}
   m_Layer: 31
   m_Name: PlayerPrefab
   m_TagString: Untagged
@@ -1146,6 +1147,21 @@ MonoBehaviour:
   doubleJumpTime: 10
   wallJumpTime: 8
   wallJumping: 0
+--- !u!114 &1527611445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1527611436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27eb805d63f06b14f98de3568c741674, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasDoubleJump: 0
+  hasWallJump: 0
+  mold: 3
 --- !u!1001 &1616846548
 PrefabInstance:
   m_ObjectHideFlags: 0

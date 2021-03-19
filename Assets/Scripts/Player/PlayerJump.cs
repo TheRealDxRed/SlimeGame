@@ -1,6 +1,7 @@
 using UnityEngine;
 
 public class PlayerJump : MonoBehaviour {
+    PlayerInventory pinv;
     PlayerStatus status;
     Rigidbody2D rb2D;
 
@@ -10,7 +11,7 @@ public class PlayerJump : MonoBehaviour {
     [SerializeField] float jumpSpeed, doubleJumpSpeed, wallJumpHSpeed, wallJumpVSpeed;
     [SerializeField] int jumpTime, doubleJumpTime, wallJumpTime;
 
-    bool doubleJumpAcquired, wallJumpAcquired, jumping, jumped, doubleJumping, doubleJumped;
+    bool jumping, jumped, doubleJumping, doubleJumped;
     public bool wallJumping;
 
     float jumpDirection;
@@ -23,17 +24,13 @@ public class PlayerJump : MonoBehaviour {
     bool jumpInput;
 
     void Start() {
+        pinv = GetComponent<PlayerInventory>();
         status = GetComponent<PlayerStatus>();
         rb2D = GetComponent<Rigidbody2D>();
-
-        // TODO remove once player inventory is implemented
-        doubleJumpAcquired = true;
-        wallJumpAcquired = true;
     }
 
     void Update() {
         // TODO animations
-        // TODO player inventory polling
     }
 
     void FixedUpdate() {
@@ -58,7 +55,7 @@ public class PlayerJump : MonoBehaviour {
             }
             
             // DOUBLEJUMP
-            else if (!doubleJumped && jumpInput && !jumpInputPrev && doubleJumpAcquired) {
+            else if (!doubleJumped && jumpInput && !jumpInputPrev && pinv.CanDoubleJump()) {
                 // double jump
                 doubleJumping = true;
                 rb2D.velocity = new Vector2(rb2D.velocity.x, doubleJumpSpeed);
@@ -102,7 +99,7 @@ public class PlayerJump : MonoBehaviour {
             jumpDirection = againstLeft - againstRight;
 
             // WALLJUMP START
-            if (jumpInput && !jumpInputPrev && wallJumpAcquired) {
+            if (jumpInput && !jumpInputPrev && pinv.CanWallJump()) {
                 wallJumping = true;
                 rb2D.velocity = new Vector2(jumpDirection*wallJumpHSpeed, wallJumpVSpeed);
                 currJumpTime = wallJumpTime;
