@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     void Update() {
-        //TODO: animations
+        //TODO animations
     }
 
     void FixedUpdate() {

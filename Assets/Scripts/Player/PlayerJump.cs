@@ -114,9 +114,21 @@ public class PlayerJump : MonoBehaviour {
 
         if (Physics2D.OverlapBox(ceilingCheck.position, ceilingCheckSize, 0, whatIsCeiling) && rb2D.velocity.y > 0) {
             rb2D.velocity = new Vector2(rb2D.velocity.x, 0);
+            currJumpTime = 0;
         }
 
         jumpInputPrev = jumpInput;
+    }
+
+    void OnDrawGizmosSelected() {
+        // Yellow
+        Gizmos.color = new Color(1, 1, 0, 0.5f);
+
+        // Floor Check
+        Gizmos.DrawCube(ceilingCheck.position, new Vector3(ceilingCheckSize.x, ceilingCheckSize.y, 1));
+
+        // Green
+        Gizmos.color = new Color(0, 1, 0, 0.5f);
     }
 
     public void JumpInput(bool value) {

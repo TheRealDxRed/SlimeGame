@@ -2,42 +2,60 @@ using System;
 using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour {
+    int defaultMaxHealth = 5;
+
     [SerializeField] bool hasDoubleJump, hasWallJump;
 
-    int currentHealth, maxHealth, healthUpgrades, maxHealthUpgrades;
+    [SerializeField] int currentHealth, maxHealth, healthUpgrades, maxHealthUpgrades;
 
-    PlayerMold oldMold = PlayerMold.NONE;
     [SerializeField] PlayerMold mold = PlayerMold.NONE;
 
     //TODO figure out item names
 
-    void Update() {
-        if (mold != oldMold) {
-            SetMold(mold);
-        }
+    void Start() {
+        maxHealth = defaultMaxHealth;
     }
 
-    void SetMold(PlayerMold newMold) {
+    public void SetMold(PlayerMold newMold) {
         mold = newMold;
     }
 
     PlayerMold GetMold() {
         return mold;
     }
+
+    public void SetHealth(int newHealth) {
+        if (newHealth > maxHealth) {
+            currentHealth = maxHealth;
+        } else if (newHealth < 0) {
+            currentHealth = 0;
+        } else
+            currentHealth = newHealth;
+    }
+
+    public void SetHealthUpgrades(int newUpgrades) {
+        healthUpgrades = newUpgrades;
+    }
+    
+    public int GetHealth() => currentHealth;
+    public int GetMaxHealth() => maxHealth;
     
     public bool CanDoubleJump() {
-        return (hasDoubleJump && ((int)mold & MoldPowers.DOUBLE_JUMP) != 0);
+        return (hasDoubleJump && MoldContains(mold, MoldPowers.DOUBLE_JUMP));
     }
 
     public bool CanWallJump() {
-        return (hasWallJump && ((int)mold & MoldPowers.WALL_JUMP) != 0);
+        return (hasWallJump && MoldContains(mold, MoldPowers.WALL_JUMP));
     }
 
     public bool CanWallStick() {
-        return (((int)mold & MoldPowers.WALL_STICK) != 0);
+        return (MoldContains(mold, MoldPowers.WALL_STICK));
     }
 
     public bool CanSwim() {
-        return (((int)mold & MoldPowers.SWIM) != 0);
+        return (MoldContains(mold, MoldPowers.SWIM));
     }
+
+    // hacky code go brrr
+    bool MoldContains(PlayerMold m, int p) => ((int)m & p) != 0;
 }
