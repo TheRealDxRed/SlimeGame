@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerHUD : MonoBehaviour {
@@ -12,14 +13,17 @@ public class PlayerHUD : MonoBehaviour {
     }
 
     void OnGUI() {
-        for (int i = 0; i < pinv.GetMaxHealth(); i++) {
-            // draw empty heart
-            GUI.DrawTexture(new Rect(10 + 80*i, 10, 96, 96), emptyHeart);
-        }
+        for (int i = 0; i < Math.Max(pinv.GetHealth(), pinv.GetMaxHealth()); i++) {
+            int j = i + 1;
+            GUI.color = Color.white;
 
-        for (int i = 0; i< pinv.GetHealth(); i++) {
-            // draw full heart
-            GUI.DrawTexture(new Rect(10 + 80*i, 10, 96, 96), fullHeart);
+            if (j > pinv.GetMaxHealth())
+                GUI.color = Color.green;
+
+            GUI.DrawTexture(new Rect(10 + 64*i, 10, 64, 128), emptyHeart);
+
+            if(j <= pinv.GetHealth())
+                GUI.DrawTexture(new Rect(10 + 64*i, 10, 64, 128), fullHeart);
         }
     }
 }

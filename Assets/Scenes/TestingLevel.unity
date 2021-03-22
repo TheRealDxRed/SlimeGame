@@ -364,7 +364,7 @@ GameObject:
   m_Component:
   - component: {fileID: 836773207}
   m_Layer: 31
-  m_Name: BackCheck
+  m_Name: LeftCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -394,7 +394,7 @@ GameObject:
   m_Component:
   - component: {fileID: 953887915}
   m_Layer: 31
-  m_Name: FrontCheck
+  m_Name: RightCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8543,8 +8543,6 @@ MonoBehaviour:
   againstLeft: 0
   againstRight: 0
   onPlatform: 0
-  againstFront: 0
-  againstStep: 0
   inWater: 0
   whatIsGround:
     serializedVersion: 2
@@ -8559,8 +8557,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 16
   downCheck: {fileID: 1483598838}
-  backCheck: {fileID: 836773207}
-  frontCheck: {fileID: 953887915}
+  leftCheck: {fileID: 836773207}
+  rightCheck: {fileID: 953887915}
   wallFrontSize: {x: 0.1, y: 2.8}
   wallBackSize: {x: 0.1, y: 2.8}
 --- !u!114 &1527611442
